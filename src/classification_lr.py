@@ -10,14 +10,14 @@ data = load_amb(model="BERT")
 
 for layer in range(12):
     # penalty="elasticnet", solver="saga", l1_ratio=0.5
-    model = LogisticRegression(max_iter=500)
+    model = LogisticRegression(C=0.3)
 
-    data_x = [x["cls"][layer] for x in data]
+    data_x = [x["mean"][layer] for x in data]
     data_x = StandardScaler().fit_transform(data_x)
     data_y = [x["amb"] for x in data]
 
     data_x_train, data_x_test, data_y_train, data_y_test = train_test_split(
-        data_x, data_y, test_size=100, shuffle=True, random_state=0,
+        data_x, data_y, test_size=20, shuffle=True, random_state=0,
     )
 
     model.fit(data_x_train, data_y_train)
