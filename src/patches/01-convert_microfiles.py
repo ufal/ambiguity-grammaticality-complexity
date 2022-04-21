@@ -8,7 +8,7 @@ import pickle
 
 data = defaultdict(lambda: {"cls": [], "mean": [], "haddamard": [], "sum": []})
 
-MODEL = "BERT"
+MODEL = "GPT"
 
 for layer in tqdm(range(12)):
     for amb_mode in ["ambiguous", "unambiguous"]:
@@ -17,6 +17,8 @@ for layer in tqdm(range(12)):
             with open(f, "rb") as f:
                 v = np.load(f)
                 data[fname]["cls"].append(v)
+
+                # 1st attempt
                 data[fname]["amb"] = amb_mode == "ambiguous"
 
 
@@ -37,6 +39,9 @@ for layer in tqdm(range(12)):
             with open(f, "rb") as f:
                 v = np.load(f)
                 data[fname]["sum"].append(v)
+
+                # 2nd attempt
+                data[fname]["amb"] = amb_mode == "ambiguous"
 
         # a hack to be included in tqdm
         if layer == 0:
