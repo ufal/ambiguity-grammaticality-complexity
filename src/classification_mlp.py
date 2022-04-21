@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from utils import load_amb
-from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from random import shuffle
@@ -9,8 +9,7 @@ from random import shuffle
 data = load_amb(model="BERT")
 
 for layer in range(12):
-    # penalty="elasticnet", solver="saga", l1_ratio=0.5
-    model = LogisticRegression(max_iter=500)
+    model = MLPClassifier(random_state=0, hidden_layer_sizes=(500,200),early_stopping=True)
 
     data_x = [x["cls"][layer] for x in data]
     data_x = StandardScaler().fit_transform(data_x)
