@@ -24,15 +24,15 @@ PLTARGS = dict(
     elinewidth=1
 )
 
-for k in ["mean", "haddamard", "sum", "cls"]:
+for k in ["Mean", "Haddamard", "Sum", "CLS"]:
     # take test scores
-    ys = [[x[1] for x in data[k][str(layer)]] for layer in range(12)]
+    ys = [[x[1] for x in data[k.lower()][str(layer)]] for layer in range(12)]
     cs = [confidence(y) for y in ys]
     yerr = [(x[1] - x[0]) / 2 for x in cs]
     plt.errorbar(
         list(range(12)),
         [np.average(y) for y in ys],
-        label=k.capitalize(),
+        label=k,
         yerr=yerr,
         **PLTARGS
     )
@@ -43,7 +43,7 @@ ys = [x[1] for x in data["pooler"]["0"]]
 cs = confidence(ys)
 yerr = (cs[1] - cs[0]) / 2
 plt.errorbar(
-    [11],
+    [10.5],
     [np.average(ys)],
     label="Pooler",
     yerr=yerr,

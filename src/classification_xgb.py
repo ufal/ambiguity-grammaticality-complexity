@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 from utils import load_amb, save_json
-from sklearn.neural_network import MLPClassifier
+from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from random import shuffle
 from collections import defaultdict
 from argparse import ArgumentParser
+import numpy as np
 
 args = ArgumentParser()
 args.add_argument("-m", "--model", default="BERT")
@@ -23,11 +24,13 @@ for mode in ["pooler", "cls", "mean", "haddamard", "sum"]:
     layer_generator = range(12) if mode != "pooler" else [0]
 
     for layer in layer_generator:
-        for rstate in range(8):
-            model = MLPClassifier(
+        for rstate in range(1):
+            model = XGBClassifier(
+                objective='binary:logistic',
+                eval_metric='error',
                 random_state=rstate,
-                hidden_layer_sizes=(100,),
-                early_stopping=True
+                # reg_alpha=1,
+                # reg_lambda=1,
             )
 
             if mode == "pooler":
@@ -35,8 +38,8 @@ for mode in ["pooler", "cls", "mean", "haddamard", "sum"]:
             else:
                 data_x = [x[mode][layer] for x in data]
 
-            data_x = StandardScaler().fit_transform(data_x)
-            data_y = [x["amb"] for x in data]
+            data_x = np.array(StandardScaler().fit_transform(data_x))
+            data_y = [x["amb"]=="A" for x in data]
 
             data_x_train, data_x_test, data_y_train, data_y_test = train_test_split(
                 data_x, data_y, test_size=100, shuffle=True, random_state=0,
@@ -52,4 +55,4 @@ for mode in ["pooler", "cls", "mean", "haddamard", "sum"]:
 
             logdata[mode][layer].append((score_train, score_test))
 
-save_json(f"computed/mlp_{args.model}_{args.dataset}.json", logdata)
+save_json(f"computed/xgb_{args.model}_{args.dataset}.json", logdata)
