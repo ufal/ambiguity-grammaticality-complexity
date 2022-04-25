@@ -7,6 +7,10 @@ def load_amb(model="BERT", dataset="EMMT"):
     with open(f"data/ambiguity_{dataset}_{model}.pkl", "rb") as f:
         return pickle.load(f)
 
+def load_gr(model="BERT", task="irregular_plural_subject_verb_agreement_2"):
+    with open(f"data/gr_{task}_{model}.pkl", "rb") as f:
+        return pickle.load(f)
+
 def read_json(path):
     with open(path, "r") as fread:
         return json.load(fread)

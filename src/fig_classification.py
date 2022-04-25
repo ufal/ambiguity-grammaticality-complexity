@@ -6,7 +6,8 @@ import numpy as np
 import fig_utils
 import scipy.stats as st
 
-data = read_json("computed/mlp_BERT_COCO.json")
+# data = read_json("computed/mlp_BERT_COCO.json")
+data = read_json("computed/mlp_BERT_gr_morphology.json")
 
 
 def confidence(vals):
