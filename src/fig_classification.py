@@ -5,10 +5,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import fig_utils
 import scipy.stats as st
+from argparse import ArgumentParser
 
-# data = read_json("computed/mlp_BERT_COCO.json")
-data = read_json("computed/mlp_BERT_gr_morphology.json")
+args = ArgumentParser()
+args.add_argument("-d", "--data", default="computed/mlp_CoLA_BERT.json")
+args = args.parse_args()
 
+data = read_json(args.data)
 
 def confidence(vals):
     return st.t.interval(
