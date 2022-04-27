@@ -9,6 +9,7 @@ from argparse import ArgumentParser
 
 args = ArgumentParser()
 args.add_argument("-d", "--data", default="computed/mlp_CoLA_BERT.json")
+args.add_argument("--tfidf", "--tf-idf", type=float, default=None)
 args = args.parse_args()
 
 data = read_json(args.data)
@@ -56,10 +57,19 @@ plt.errorbar(
 
 plt.hlines(
     0.5, 0, 11, label="MCCC",
-    linestyle=":", color="tab:gray")
+    linestyle=":", color="tab:gray"
+)
+
+if args.tfidf is not None:
+    plt.hlines(
+        args.tfidf, 0, 11, label="TF-IDF",
+        linestyle="-.", color="tab:gray"
+    )
+
 plt.ylabel("Dev accuracy")
 plt.xlabel("Layer")
 
 plt.tight_layout(pad=0.1)
 plt.legend(ncol=2)
+plt.savefig(args.data.replace(".json", ".pdf"))
 plt.show()
