@@ -10,6 +10,7 @@ from argparse import ArgumentParser
 
 args = ArgumentParser()
 args.add_argument("-d", "--data", default="data/ambiguity_COCO_BERT.pkl")
+args.add_argument("--target", default="amb", help="Probably `amb` or `class`. Based on Sunit's export.")
 args = args.parse_args()
 
 data = read_pickle(args.data)
@@ -20,8 +21,7 @@ for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
     vectorizer = TfidfVectorizer(max_features=max_features)
     data_x = vectorizer.fit_transform([line["sent"] for line in data])
 
-    data_y = [x["amb"] for x in data]
-    # data_y = [x["class"] for x in data]
+    data_y = [x[args.target] for x in data]
 
     data_x_train, data_x_test, data_y_train, data_y_test = train_test_split(
         data_x, data_y, test_size=100, shuffle=True, random_state=0,

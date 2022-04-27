@@ -11,6 +11,7 @@ from pathlib import Path
 
 args = ArgumentParser()
 args.add_argument("-d", "--data", default="data/CoLA_BERT.pkl")
+args.add_argument("--target", default="class", help="Probably `amb` or `class`. Based on Sunit's export.")
 args = args.parse_args()
 
 data = read_pickle(args.data)
@@ -36,8 +37,7 @@ for mode in ["pooler", "cls", "mean", "haddamard", "sum"]:
                 data_x = [x[mode][layer] for x in data]
 
             data_x = StandardScaler().fit_transform(data_x)
-            data_y = [x["amb"] for x in data]
-            # data_y = [x["class"] for x in data]
+            data_y = [x[args.target] for x in data]
 
             data_x_train, data_x_test, data_y_train, data_y_test = train_test_split(
                 data_x, data_y, test_size=100, shuffle=True, random_state=0,
