@@ -11,11 +11,12 @@ from argparse import ArgumentParser
 args = ArgumentParser()
 args.add_argument("-d", "--data", default="data/ambiguity_COCO_BERT.pkl")
 args.add_argument("--target", default="amb", help="Probably `amb` or `class`. Based on Sunit's export.")
+
 args = args.parse_args()
 
 data = read_pickle(args.data)
 
-
+max_acc = 0
 for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
     model = LogisticRegression()
     vectorizer = TfidfVectorizer(max_features=max_features)
@@ -32,3 +33,13 @@ for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
     score_test = model.score(data_x_test, data_y_test)
 
     print(f"Features {max_features} accuracy:\ttrain: {score_train:.2%}, test: {score_test:.2%}")
+    if score_test>max_acc:
+        max_acc=score_test
+
+f_name = open("tfidf_baselines","a")
+set_name = args.data
+case_name = set_name.split("/")[-2]
+if args.target=="amb":
+    case_name = case_name.split("_")[1]
+print("%s\t%s"%(case_name,max_acc),file=f_name)
+f_name.close()

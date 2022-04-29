@@ -1,0 +1,6 @@
+LRC:ubuntu 18.04: SGE 8.1.9 configured...
+======= EPILOG: Fri Apr 29 14:56:04 CEST 2022
+== Limits:   
+== Usage:    cpu=16:01:34, mem=163018.50381 GB s, io=2.43395 GB, vmem=2.832G, maxvmem=2.838G
+== Duration: 00:26:53 (1613 s)
+== Server name: orion8

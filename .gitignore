@@ -4,6 +4,8 @@ computed
 
 # added by SUBdroid
 .history-*
+.*.e*
+.*.o*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
