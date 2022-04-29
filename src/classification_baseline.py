@@ -36,7 +36,7 @@ for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
     if score_test>max_acc:
         max_acc=score_test
 
-f_name = open("tfidf_baselines","a")
+f_name = open("computed/tfidf_baselines.tsv","a")
 set_name = args.data
 case_name = set_name.split("/")[-2]
 if args.target=="amb":

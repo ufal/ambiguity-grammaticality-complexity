@@ -1,6 +1,10 @@
 # added by zouharvi
 data
-computed
+computed/*.pdf
+computed/*.json
+# sunit's logs
+*.sh.e*
+*.sh.o*
 
 # added by SUBdroid
 .history-*

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 source ../MML/virtual/bin/activate
-rm tfidf_baselines
-touch tfidf_baselines
+rm computed/tfidf_baselines.tsv
+touch computeD/tfidf_baselines.tsv
 
 
 # AMBIGUITY CASES

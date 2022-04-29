@@ -43,7 +43,7 @@ def read_tfidf(name,target):
             else:
                 file_name+=name_components[c]
         target_name = file_name 
-    f_ = open(os.path.join(os.getcwd(),"tfidf_baselines"),"r").read().split("\n")
+    f_ = open(os.path.join(os.getcwd(),"computed/tfidf_baselines.tsv"),"r").read().split("\n")
     for item in f_:
         items = item.split("\t")
         if len(items)==2:

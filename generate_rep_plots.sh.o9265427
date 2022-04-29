@@ -1,3 +1,0 @@
-###  Welcome to UFAL machines for MT Marathon. Use:
-  h needle  # to grep your bash history in the current dir for needle
-## you are on cluster, submit jobs using 'qsub'
