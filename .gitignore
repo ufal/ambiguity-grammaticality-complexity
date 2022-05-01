@@ -11,6 +11,7 @@ computed/*.json
 huggingface_cache
 Representations
 .cache
+.python_history
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
