@@ -2,14 +2,15 @@
 data
 computed/*.pdf
 computed/*.json
-# sunit's logs
-*.sh.e*
-*.sh.o*
+
 
 # added by SUBdroid
 .history-*
-.*.e*
-.*.o*
+*.sh.e*
+*.sh.o*
+huggingface_cache
+Representations
+.cache
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
