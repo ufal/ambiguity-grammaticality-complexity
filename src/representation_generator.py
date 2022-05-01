@@ -71,7 +71,7 @@ class Model_sent:
 
         Mean, Sum, Haddamard = [],[],[]
         
-        for lyr in range(12):
+        for lyr in range(13):
             layer_rep = hidden_states[lyr][0]
                 
             if CLS:
