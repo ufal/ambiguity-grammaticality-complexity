@@ -2,36 +2,46 @@
 
 
 ## Extracting the representations
-To extract the representations from the data, run:
+To extract the representations from the data, run: \
+
 ./src/patches_sunit/generate_representations.sh [location-of-source-data] (optional: [location-of-virtual-environment])
 
 ### Example:    
-./src/patches_sunit/generate_representations.sh ../folder_where_data_is_stored/data
-./src/patches_sunit/generate_representations.sh ../folder_where_data_is_stored/data ../location_of_virtualenv
+./src/patches_sunit/generate_representations.sh ../folder_where_data_is_stored/data \
+
+./src/patches_sunit/generate_representations.sh ../folder_where_data_is_stored/data ../location_of_virtualenv \
 
 For more help about the script, run:
+
 ./src/patches_sunit/generate_representations.sh -h
 
 ## Extracting the tf-idf baselines
+
 To extract the tf-idf baselines, run:
+
 ./src/patches_sunit/baseline_generator.sh (optional: [location-of-virtual-environment])
 
 ### Example:
-./src/patches_sunit/baseline_generator.sh 
-./src/patches_sunit/baseline_generator.sh ../location_of_virtualenv
 
-For more help about the script, run:
-./src/patches_sunit/baseline_generator.sh -h
+./src/patches_sunit/baseline_generator.sh \
+
+./src/patches_sunit/baseline_generator.sh ../location_of_virtualenv \
+
+For more help about the script, run: \
+
+./src/patches_sunit/baseline_generator.sh -h \
 
 ## Running MLP classifier on the extracted representations:
 
-./src/patches_sunit/generate_rep_plots.sh (optional: [location-of-virtual-environment])
+./src/patches_sunit/generate_rep_plots.sh (optional: [location-of-virtual-environment]) \
 
-###Example:    
-./src/patches_sunit/generate_rep_plots.sh     
-./src/patches_sunit/generate_rep_plots.sh ../location_of_virtualenv
+### Example:    
+./src/patches_sunit/generate_rep_plots.sh  \
 
-For more help about the script, run:
+./src/patches_sunit/generate_rep_plots.sh ../location_of_virtualenv \
+
+For more help about the script, run: \
+
 ./src/patches_sunit/generate_rep_plots.sh  -h
 
 
