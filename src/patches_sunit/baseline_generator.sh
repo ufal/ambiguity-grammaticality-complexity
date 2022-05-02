@@ -6,7 +6,7 @@ a. <path_of_virtual_environment> : This is an optional argument that specifies t
 
 Run the script as:
 
-generate_rep_plots.sh <path_of_virtual_environment>
+baseline_generator.sh <path_of_virtual_environment>
 " && exit
 
 HOME=$(pwd)
