@@ -47,8 +47,8 @@ print("\nWord features:")
 max_vocab_coefs.sort(key=lambda x: x[1])
 max_vocab_coefs_min = max_vocab_coefs[:10]
 max_vocab_coefs_max = max_vocab_coefs[-10:][::-1]
-print("Positive:", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_max]))
-print("Negative:", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_min]))
+print("NAmb.:", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_max]))
+print("Amb.: ", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_min]))
 
 f_name = open("computed/tfidf_baselines.tsv","a")
 set_name = args.data
