@@ -17,6 +17,7 @@ print("processing %s"%args.data)
 data = read_pickle(args.data)
 
 max_acc = 0
+max_acc_train = None
 max_vocab_coefs = None
 
 for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
@@ -26,7 +27,7 @@ for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
 
     rev_vocab = {v:k for k,v in vectorizer.vocabulary_.items()}
 
-    data_y = [x["amb"] for x in data]
+    data_y = [x["class"] for x in data]
 
     data_x_train, data_x_test, data_y_train, data_y_test = train_test_split(
         data_x, data_y, test_size=100, shuffle=True, random_state=0,
@@ -40,6 +41,7 @@ for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
 
     if score_test > max_acc:
         max_acc = score_test
+        max_acc_train = score_train
         max_vocab_coefs = [(rev_vocab[k],v) for k,v in enumerate(model.coef_[0])]
 
 
@@ -47,11 +49,14 @@ print("\nWord features:")
 max_vocab_coefs.sort(key=lambda x: x[1])
 max_vocab_coefs_min = max_vocab_coefs[:10]
 max_vocab_coefs_max = max_vocab_coefs[-10:][::-1]
-print("NAmb.:", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_max]))
-print("Amb.: ", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_min]))
+print("Positive.:", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_max]))
+print("Negative.: ", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_min]))
 
 f_name = open("computed/tfidf_baselines.tsv","a")
+f_name2 = open("computed/tfidf_baselines_train.tsv","a")
 set_name = args.data
 case_name = set_name.split("/")[-2]
 print("%s\t%s"%(case_name,max_acc),file=f_name)
+print("%s\t%s"%(case_name,max_acc_train),file=f_name2)
 f_name.close()
+f_name2.close()

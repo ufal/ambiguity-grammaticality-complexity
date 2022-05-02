@@ -17,7 +17,7 @@ if [ -z "$1" ]
     virtual=/home/bhattacharya/personal_work_troja/MML/virtual
     [ -d $virtual ] && source $virtual/bin/activate    
 else
-    virtual=$2
+    virtual=$1
     source $virtual/bin/activate
 fi
 

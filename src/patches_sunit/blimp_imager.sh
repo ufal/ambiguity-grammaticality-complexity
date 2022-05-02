@@ -21,7 +21,7 @@ else
     source $virtual/bin/activate
 fi
 
-
-
-# AMBIGUITY CASES
-./src/generate_heatmaps.py
+Amb_LOC=$HOME/computed/Ambiguity
+for d in $Amb_LOC/*; do
+    ./src/heatmap_category_wise.py --data $d
+done
