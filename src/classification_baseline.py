@@ -9,7 +9,7 @@ from random import shuffle
 from argparse import ArgumentParser
 
 args = ArgumentParser()
-args.add_argument("-d", "--data", default="Representations/Ambiguity/COCO/BERT.pkl")
+args.add_argument("-d", "--data", default="data/ambiguity_EMMT_BERT.pkl")
 args = args.parse_args()
 
 print("processing %s"%args.data)
@@ -17,12 +17,16 @@ print("processing %s"%args.data)
 data = read_pickle(args.data)
 
 max_acc = 0
+max_vocab_coefs = None
+
 for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
     model = LogisticRegression()
     vectorizer = TfidfVectorizer(max_features=max_features)
     data_x = vectorizer.fit_transform([line["sent"] for line in data])
 
-    data_y = [x["class"] for x in data]
+    rev_vocab = {v:k for k,v in vectorizer.vocabulary_.items()}
+
+    data_y = [x["amb"] for x in data]
 
     data_x_train, data_x_test, data_y_train, data_y_test = train_test_split(
         data_x, data_y, test_size=100, shuffle=True, random_state=0,
@@ -33,8 +37,18 @@ for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
     score_test = model.score(data_x_test, data_y_test)
 
     print(f"Features {max_features} accuracy:\ttrain: {score_train:.2%}, test: {score_test:.2%}")
-    if score_test>max_acc:
-        max_acc=score_test
+
+    if score_test > max_acc:
+        max_acc = score_test
+        max_vocab_coefs = [(rev_vocab[k],v) for k,v in enumerate(model.coef_[0])]
+
+
+print("\nWord features:")
+max_vocab_coefs.sort(key=lambda x: x[1])
+max_vocab_coefs_min = max_vocab_coefs[:10]
+max_vocab_coefs_max = max_vocab_coefs[-10:][::-1]
+print("Positive:", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_max]))
+print("Negative:", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_min]))
 
 f_name = open("computed/tfidf_baselines.tsv","a")
 set_name = args.data
