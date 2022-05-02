@@ -29,14 +29,16 @@ graph_path = args.data.replace("Representations","graphs")
 folder_generator_graph(graph_path)
 
 rep_file_list = ["mlp_BERT.json","mlp_GPT2.json","mlp_SBERT.json"]
+
 case_name = data_path.split("/")[-1]
-print(case_name)
+if len(case_name.split())==0:
+    case_name = data_path.split("/")[-2]
 
 tf_idf = float(read_tfidf(case_name)) 
 
 for data_file in rep_file_list:
     data = read_json(os.path.join(data_path,data_file))
-    print(data)
+    # print(data)
     PLTARGS = dict(
     capsize=3, capthick=2,
     ms=10, marker=".",
@@ -91,7 +93,7 @@ for data_file in rep_file_list:
     plt.legend(ncol=2)
     
     loc = os.path.join(graph_path,data_file.replace(".json", ".pdf"))
-    print(loc)
+    # print(loc)
     plt.savefig(loc)
     # plt.show()
     plt.clf()

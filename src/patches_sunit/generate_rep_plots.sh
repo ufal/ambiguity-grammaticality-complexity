@@ -26,7 +26,7 @@ fi
 Amb_LOC=$HOME/Representations/Ambiguity
 for d in $Amb_LOC/*; do
     echo $d
-    ./src/classification_mlp.py --data $d 
+    # ./src/classification_mlp.py --data $d 
     ./src/fig_classification.py --data $d
 done
 
@@ -36,12 +36,12 @@ for d in $GRAM_LOC/*; do
     bert_repr=$n_loc/BERT.pkl
     if [ -f "$bert_repr" ]; then
         echo $n_loc
-        ./src/classification_mlp.py --data $n_loc 
+        # ./src/classification_mlp.py --data $n_loc 
         ./src/fig_classification.py --data $n_loc
     else
         for case in $n_loc/*/; do
             echo $case
-            ./src/classification_mlp.py --data $case 
+            # ./src/classification_mlp.py --data $case 
             ./src/fig_classification.py --data $case
         done
     fi

@@ -67,9 +67,29 @@ def ambiguous():
     
     return case_scores
     
+def CoLA():
+    case_scores = []
+    ambiguous_location = os.path.join(os.getcwd(),os.path.join("computed","Grammaticality"))
+    
+    CoLA = os.path.join(ambiguous_location,"CoLA")
+    scores = summary_stats(CoLA)
+    case_scores.append(scores)
+    
+    
+    return case_scores
     
 
-Dataset_names = ["COCO","EMMT","CoLA",""]
+Dataset_names = ["COCO","EMMT","CoLA"]
 All_data = []
 amb_data_scores = ambiguous() 
-print(amb_data_scores)
+All_data = All_data + amb_data_scores
+CoLA_data_scores = CoLA() 
+All_data = All_data + CoLA_data_scores
+Dataset = np.array(All_data)
+print(Dataset.shape)
+text = np.repeat(np.array(["T","B","G","S"]),len(Dataset_names))
+print(text.shape)
+# fig, ax = plt.subplots()
+#   # drawing heatmap on current axes
+# ax = sns.heatmap(Dataset, annot=text, fmt="")
+# plt.savefig("Heatmap")
