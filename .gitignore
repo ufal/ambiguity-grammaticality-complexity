@@ -12,6 +12,7 @@ huggingface_cache
 Representations
 .cache
 .python_history
+.*_history
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

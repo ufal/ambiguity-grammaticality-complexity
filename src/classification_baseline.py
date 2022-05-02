@@ -9,10 +9,10 @@ from random import shuffle
 from argparse import ArgumentParser
 
 args = ArgumentParser()
-args.add_argument("-d", "--data", default="data/ambiguity_COCO_BERT.pkl")
-args.add_argument("--target", default="amb", help="Probably `amb` or `class`. Based on Sunit's export.")
-
+args.add_argument("-d", "--data", default="Representations/Ambiguity/COCO/BERT.pkl")
 args = args.parse_args()
+
+print("processing %s"%args.data)
 
 data = read_pickle(args.data)
 
@@ -22,7 +22,7 @@ for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
     vectorizer = TfidfVectorizer(max_features=max_features)
     data_x = vectorizer.fit_transform([line["sent"] for line in data])
 
-    data_y = [x[args.target] for x in data]
+    data_y = [x["class"] for x in data]
 
     data_x_train, data_x_test, data_y_train, data_y_test = train_test_split(
         data_x, data_y, test_size=100, shuffle=True, random_state=0,
@@ -39,7 +39,5 @@ for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
 f_name = open("computed/tfidf_baselines.tsv","a")
 set_name = args.data
 case_name = set_name.split("/")[-2]
-if args.target=="amb":
-    case_name = case_name.split("_")[1]
 print("%s\t%s"%(case_name,max_acc),file=f_name)
 f_name.close()

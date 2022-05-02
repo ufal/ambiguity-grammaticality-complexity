@@ -30,19 +30,7 @@ def save_pickle(path, data):
         pickler = pickle.Pickler(fwrite)
         pickler.dump(data)
 
-def read_tfidf(name,target):
-    if target=="amb":
-        name = name.split("_")[2].replace(".json","")
-        target_name=name
-    else:
-        file_name=''
-        name_components = name.split("_")
-        for c in range(1,len(name_components)-1):
-            if c!=len(name_components)-1:
-                file_name+=name_components[c]+"_"
-            else:
-                file_name+=name_components[c]
-        target_name = file_name 
+def read_tfidf(name):
     f_ = open(os.path.join(os.getcwd(),"computed/tfidf_baselines.tsv"),"r").read().split("\n")
     for item in f_:
         items = item.split("\t")
@@ -53,12 +41,32 @@ def read_tfidf(name,target):
                 break
     return value
 
-def json_name(name,target):
-    file_name=''
-    if target=="amb":
-        file_name = name.split("/")[-2]
-    else:
-        file_name = name.split("/")[-2]
-        model_name = ((name.split("/")[-1].split("_"))[0]).upper()
-        file_name = model_name+"_"+file_name
-    return file_name
+def file_list(name):
+    return [os.path.join(name,"BERT.pkl"),os.path.join(name,"GPT2.pkl"),os.path.join(name,"SBERT.pkl")]
+
+def create_folders(path):
+    if not os.path.exists(path):
+        os.mkdir(path)
+
+def computed_path_generator(abs_path):
+    items = abs_path.split("/")
+    rep_index = items.index('Representations')
+    path_list = items[rep_index+1:-1]
+    target_path = os.path.join(os.getcwd(),"computed")
+    create_folders(target_path)
+    for locations in path_list:
+        target_path = os.path.join(target_path,locations)
+        create_folders(target_path)
+    return target_path
+
+def folder_generator_graph(abs_path):
+    items = abs_path.split("/")
+    rep_index = items.index('graphs')
+    path_list = items[rep_index+1:]
+    # print(path_list)
+    target_path = os.path.join(os.getcwd(),"graphs")
+    create_folders(target_path)
+    for locations in path_list:
+        target_path = os.path.join(target_path,locations)
+        create_folders(target_path)
+    

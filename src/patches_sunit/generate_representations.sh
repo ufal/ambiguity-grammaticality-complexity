@@ -5,7 +5,7 @@ Run the script with following arguments:
 
 a. <path_of_data> : This is a compulsory arument that specifies where the representation data would be generated from
 
-b. <path_of_virtual_environment> : This is an optional arghment that specifies the path of the virtual environment
+b. <path_of_virtual_environment> : This is an optional argument that specifies the path of the virtual environment
 
 Run the script as:
 

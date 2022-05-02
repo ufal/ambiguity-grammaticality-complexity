@@ -1,54 +1,52 @@
-#!/usr/bin/env bash
-source ../MML/virtual/bin/activate
-SBERT="SBERT"
-BERT="BERT"
+#!/bin/bash
+[ "$1" == "-h" -o "$1" == "-help" ] && echo "
+Run the script with following arguments:
+
+a. <path_of_virtual_environment> : This is an optional argument that specifies the path of the virtual environment
+
+Run the script as:
+
+generate_rep_plots.sh <path_of_virtual_environment>
+" && exit
+
+HOME=$(pwd)
+
+# Locating the virtual environment
+if [ -z "$1" ]
+  then
+    virtual=/home/bhattacharya/personal_work_troja/MML/virtual
+    [ -d $virtual ] && source $virtual/bin/activate    
+else
+    virtual=$2
+    source $virtual/bin/activate
+fi
 
 
-Amb_LOC=../Representation_Probing/Representations/Ambiguity
-rep_file=sentence_representations.pkl
+
+Amb_LOC=$HOME/Representations/Ambiguity
 for d in $Amb_LOC/*; do
-    n_loc=$d
-    FILENAME="$(basename $d)"
-    arrIN=(${FILENAME//_/ })
-    item=${arrIN[0]}
-    repr=$n_loc/$rep_file
-    ./src/classification_mlp.py --data $repr --target amb
-    FILENAME="$(basename $n_loc)"
-    ./src/fig_classification.py --data computed/mlp_$FILENAME.json --target amb 
+    echo $d
+    ./src/classification_mlp.py --data $d 
+    ./src/fig_classification.py --data $d
 done
 
-
-
-
-GRAM_LOC=../Representation_Probing/Representations/Grammaticality
+GRAM_LOC=$HOME/Representations/Grammaticality
 for d in $GRAM_LOC/*; do
     n_loc=$d
-    bert_repr=$n_loc/bert_sentence_representations.pkl
-    gpt_repr=$n_loc/gpt_sentence_representations.pkl
-    sbert_repr=$n_loc/sbert_sentence_representations.pkl
+    bert_repr=$n_loc/BERT.pkl
     if [ -f "$bert_repr" ]; then
-        FILENAME="$(basename $d)"
-        ./src/classification_mlp.py --data $bert_repr --target class
-        ./src/fig_classification.py --data computed/mlp_BERT_$FILENAME.json --target class
-        ./src/classification_mlp.py --data $gpt_repr --target class
-        ./src/fig_classification.py --data computed/mlp_GPT_$FILENAME.json --target class
-        ./src/classification_mlp.py --data $sbert_repr --target class
-        ./src/fig_classification.py --data computed/mlp_SBERT_$FILENAME.json --target class
+        echo $n_loc
+        ./src/classification_mlp.py --data $n_loc 
+        ./src/fig_classification.py --data $n_loc
     else
         for case in $n_loc/*/; do
-            FILENAME="$(basename $case)"
-            bert_repr=$case"bert_sentence_representations.pkl"
-            gpt_repr=$case"bert_sentence_representations.pkl"
-            sbert_repr=$case"bert_sentence_representations.pkl"
-            ./src/classification_mlp.py --data $bert_repr --target class
-            ./src/fig_classification.py --data computed/mlp_BERT_$FILENAME.json --target class
-            ./src/classification_mlp.py --data $gpt_repr --target class
-            ./src/fig_classification.py --data computed/mlp_GPT_$FILENAME.json --target class
-            ./src/classification_mlp.py --data $sbert_repr --target class
-            ./src/fig_classification.py --data computed/mlp_SBERT_$FILENAME.json --target class
+            echo $case
+            ./src/classification_mlp.py --data $case 
+            ./src/fig_classification.py --data $case
         done
     fi
 done
 
-
+rm -rf .cache
+rm .python_history
 
