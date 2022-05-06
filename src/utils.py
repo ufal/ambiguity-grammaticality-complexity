@@ -34,6 +34,15 @@ def read_tfidf(name):
             if items[0] == name:
                 return items[1]
 
+def read_tfidf_neural(name):
+    with open('computed/tfidf_baselines_mlp.tsv', "r") as f:
+        for line in f.readlines():
+            items = line.strip().split("\t")
+            if len(items) < 2:
+                continue
+            if items[0] == name:
+                return items[1]
+
 def file_list(name):
     return [os.path.join(name, "BERT.pkl"), os.path.join(name, "GPT2.pkl"), os.path.join(name, "SBERT.pkl")]
 

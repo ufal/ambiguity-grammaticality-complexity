@@ -185,36 +185,66 @@ def BlIMP_syntax_semantics():
     
        
 
-def ambiguous():
-    case_scores_max = []
+def ambiguous_CoLA():
+    scores_agg = []
+    names = []
+    layers_agg = []
+    rep_type_agg = []
+
     
+    
+    Datasets = ["COCO","EMMT"]
     ambiguous_location = os.path.join(os.getcwd(),os.path.join("computed","Ambiguity"))
+    case_scores = []
+
+    for dataset in Datasets:
+        data = os.path.join(ambiguous_location,dataset)    
+        scores, layer_scores, rep = summary_stats(data)
+        scores_agg.append(scores)
+        layers_agg.append(layer_scores)
+        rep_type_agg.append(rep)
     
-    COCO = os.path.join(ambiguous_location,"COCO")
-    max_scores  = summary_stats(COCO)
-    case_scores_max.append(max_scores)
+    CoLA_location = os.path.join(os.getcwd(),os.path.join("computed","Grammaticality"))
+    data = os.path.join(CoLA_location,"CoLA")    
+    scores, layer_scores, rep = summary_stats(data)
+    scores_agg.append(scores)
+    layers_agg.append(layer_scores)
+    rep_type_agg.append(rep)
     
-    
-    EMMT = os.path.join(ambiguous_location,"EMMT")
-    max_scores = summary_stats(EMMT)
-    case_scores_max.append(max_scores)
+    names = ["COCO","EMMT","CoLA"]    
+    x_axis_labels = ["TF-IDF","BERT","GPT2","SBERT"]
+    fig, ax = plt.subplots()
+    ax = sns.heatmap(scores_agg, xticklabels=x_axis_labels,  yticklabels=names, fmt="")
+
+    plt.title("Heatmap: Ambiguous and CoLA")
+    plt.tight_layout(pad=0.1)
+    plt.savefig("computed/Heatmap_Ambiguous_CoLA.pdf")
+
+    plt.clf()
+    plt.close()
+
+    x_axis_labels = ["BERT","GPT2","SBERT"] 
+    fig, ax = plt.subplots()
+    ax = sns.heatmap(layers_agg, annot=rep_type_agg, xticklabels=x_axis_labels,  yticklabels=names, fmt="")
+
+    plt.title("Heatmap: Ambiguous and CoLA layers")
+    plt.tight_layout(pad=0.1)
+    plt.savefig("computed/Heatmap_Ambiguous_CoLA_layers.pdf")
+
+    plt.clf()
+    plt.close()
         
-    return case_scores_max
-    
-def CoLA():
-    case_scores_max = []
-
-    data_location = os.path.join(os.getcwd(),os.path.join("computed","Grammaticality"))
-    
-    CoLA = os.path.join(data_location,"CoLA")
-    max_scores = summary_stats(CoLA)
-    case_scores_max.append(max_scores)
-
-    return case_scores_max
 
 def BLiMP_Plotter(condition):
     if condition=="morphology":
         func = BlIMP_morphology()
+    if condition=="syntax":
+        func = BlIMP_syntax()
+    if condition=="semantics":
+        func = BlIMP_semantics()
+    if condition=="syntax_semantics":
+        func = BlIMP_syntax_semantics()
+
     scores_agg, names, layer_agg, rep_agg = func
 
     x_axis_labels = ["TF-IDF","BERT","GPT2","SBERT"]
@@ -242,32 +272,55 @@ def BLiMP_Plotter(condition):
     plt.close()
 
 
-# Dataset_names = ["COCO","EMMT","CoLA"]
-# All_data_max = []
-
-# amb_data_scores_max = ambiguous() 
-# All_data_max = All_data_max + amb_data_scores_max
-
-# CoLA_data_scores_max = CoLA() 
-# All_data_max = All_data_max + CoLA_data_scores_max
-
-
-# Dataset_max = np.array(All_data_max)
-# x_axis_labels = ["TF-IDF","BERT","GPT2","SBERT"] # labels for x-axis
-# y_axis_labels = Dataset_names # labels for y-axis
-
-# fig, ax = plt.subplots()
-#   # drawing heatmap on current axes
-# ax = sns.heatmap(Dataset_max, xticklabels=x_axis_labels, yticklabels=y_axis_labels, fmt="")
-# plt.title("Heatmap: Max")
-# plt.savefig("computed/Heatmap_max.pdf")
-
-# plt.clf()
-# plt.close()
-
+ambiguous_CoLA()
 
 
 BLiMP_Plotter("morphology")
-# BLiMP_Plotter("syntax")
-# BLiMP_Plotter("semantics")
-# BLiMP_Plotter("syntax-semantics")
+BLiMP_Plotter("syntax")
+BLiMP_Plotter("semantics")
+BLiMP_Plotter("syntax_semantics")
+
+def complexity():
+    scores_agg = []
+    names = []
+    layers_agg = []
+    rep_type_agg = []
+
+    
+    
+    Datasets = ["complexity_english","complexity_italian"]
+    complexity_location = os.path.join(os.getcwd(),os.path.join("computed","Complexity"))
+    case_scores = []
+
+    for dataset in Datasets:
+        data = os.path.join(complexity_location,dataset)    
+        scores, layer_scores, rep = summary_stats(data)
+        scores_agg.append(scores)
+        layers_agg.append(layer_scores)
+        rep_type_agg.append(rep)
+    
+    
+    names = ["English","Italian"]    
+    x_axis_labels = ["TF-IDF","BERT","GPT2","SBERT"]
+    fig, ax = plt.subplots()
+    ax = sns.heatmap(scores_agg, xticklabels=x_axis_labels,  yticklabels=names, fmt="")
+
+    plt.title("Heatmap: Complexity")
+    plt.tight_layout(pad=0.1)
+    plt.savefig("computed/Complexity.pdf")
+
+    plt.clf()
+    plt.close()
+
+    x_axis_labels = ["BERT","GPT2","SBERT"] 
+    fig, ax = plt.subplots()
+    ax = sns.heatmap(layers_agg, annot=rep_type_agg, xticklabels=x_axis_labels,  yticklabels=names, fmt="")
+
+    plt.title("Heatmap: Complexity layers")
+    plt.tight_layout(pad=0.1)
+    plt.savefig("computed/Heatmap_Complexity_layers.pdf")
+
+    plt.clf()
+    plt.close()
+
+complexity()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from utils import read_json, read_tfidf, folder_generator_graph
+from utils import read_json, read_tfidf, read_tfidf_neural,folder_generator_graph
 import matplotlib.pyplot as plt
 import numpy as np
 import fig_utils
@@ -35,6 +35,8 @@ if len(case_name.split())==0:
     case_name = data_path.split("/")[-2]
 
 tf_idf = float(read_tfidf(case_name)) 
+
+tf_idf_neural = float(read_tfidf_neural(case_name)) 
 
 for data_file in rep_file_list:
     data = read_json(os.path.join(data_path,data_file))
@@ -75,15 +77,21 @@ for data_file in rep_file_list:
             ** PLTARGS
         )
 
-    plt.hlines(
-        0.5, 0, 12, label="MCCC",
-        linestyle=":", color="tab:gray"
-    )
+    # plt.hlines(
+    #     0.5, 0, 12, label="MCCC",
+    #     linestyle=":", color="tab:gray"
+    # )
 
     if tf_idf is not None:
         plt.hlines(
-            tf_idf, 0, 12, label="TF-IDF",
+            tf_idf, 0, 12, label="TF-IDF (logistic)",
             linestyle="-.", color="tab:gray"
+        )
+
+    if tf_idf_neural is not None:
+        plt.hlines(
+            tf_idf_neural, 0, 12, label="TF-IDF (neural)",
+            linestyle=":", color="tab:gray"
         )
 
     plt.ylabel("Dev accuracy")

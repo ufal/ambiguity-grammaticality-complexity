@@ -48,3 +48,7 @@ for d in $GRAM_LOC/*; do
     fi
 done
 
+#COMPLEXITY CASE
+COM_LOC=$HOME/Representations/Complexity
+./src/classification_baseline.py -d $COM_LOC/complexity_english/BERT.pkl 
+./src/classification_baseline.py -d $COM_LOC/complexity_italian/BERT.pkl 

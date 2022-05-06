@@ -47,6 +47,14 @@ for d in $GRAM_LOC/*; do
     fi
 done
 
-rm -rf .cache
-rm .python_history
+COMPLEXITY_LOC=$HOME/Representations/Complexity
+for d in $COMPLEXITY_LOC/*; do
+    echo $d
+    # ./src/classification_mlp.py --data $d 
+    ./src/fig_classification.py --data $d
+done
+
+
+# rm -rf .cache
+# rm .python_history
 

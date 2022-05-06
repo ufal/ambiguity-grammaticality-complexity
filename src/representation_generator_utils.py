@@ -98,3 +98,17 @@ def CoLA_extract(data_folder):
     Accept = random.sample(Accept, len(Unaccept))
     
     return Accept,Unaccept
+
+def Complexity_extract(data_folder,language):
+
+    data_loc = os.path.join(data_folder,os.path.join("complexity"))
+    file_name = "simple_"+language
+    content = open(os.path.join(data_loc,file_name),"r").read().split("\n")
+    simple = content[:-1]
+
+    data_loc = os.path.join(data_folder,os.path.join("complexity"))
+    file_name = "complicated_"+language
+    content = open(os.path.join(data_loc,file_name),"r").read().split("\n")
+    complicated = content[:-1]
+    
+    return simple,complicated
