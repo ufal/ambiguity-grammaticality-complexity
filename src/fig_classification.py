@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from utils import read_json, read_tfidf, read_tfidf_neural,folder_generator_graph
+from utils import read_json, read_tfidf, read_tfidf_neural, folder_generator_graph
 import matplotlib.pyplot as plt
 import numpy as np
 import fig_utils
@@ -9,6 +9,7 @@ from argparse import ArgumentParser
 import os
 from utils import computed_path_generator
 from pathlib import Path
+
 
 def confidence(vals):
     return st.t.interval(
@@ -23,37 +24,38 @@ args = ArgumentParser()
 args.add_argument("-d", "--data", default="computed/mlp_CoLA_BERT.json")
 args = args.parse_args()
 
-data_path = args.data.replace("Representations","computed")
+data_path = args.data.replace("Representations", "computed")
 
-graph_path = args.data.replace("Representations","graphs")
+graph_path = args.data.replace("Representations", "graphs")
 folder_generator_graph(graph_path)
 
-rep_file_list = ["mlp_BERT.json","mlp_GPT2.json","mlp_SBERT.json"]
+rep_file_list = ["mlp_BERT.json", "mlp_GPT2.json", "mlp_SBERT.json"]
 
 case_name = data_path.split("/")[-1]
-if len(case_name.split())==0:
+if len(case_name.split()) == 0:
     case_name = data_path.split("/")[-2]
 
-tf_idf = float(read_tfidf(case_name)) 
+tf_idf = float(read_tfidf(case_name))
 
-tf_idf_neural = float(read_tfidf_neural(case_name)) 
+tf_idf_neural = float(read_tfidf_neural(case_name))
 
 for data_file in rep_file_list:
-    data = read_json(os.path.join(data_path,data_file))
+    data = read_json(os.path.join(data_path, data_file))
     # print(data)
     PLTARGS = dict(
-    capsize=3, capthick=2,
-    ms=10, marker=".",
-    elinewidth=1
+        capsize=3, capthick=2,
+        ms=10, marker=".",
+        elinewidth=1
     )
-    if data_file=="mlp_GPT2.json":
+    if data_file == "mlp_GPT2.json":
         rep_list = ["Mean", "Haddamard", "Sum"]
     else:
         rep_list = ["Mean", "Haddamard", "Sum", "CLS"]
 
     for k in rep_list:
         # take test scores
-        ys = [[x[1] for x in data[k.lower()][str(layer)]] for layer in range(13)]
+        ys = [[x[1] for x in data[k.lower()][str(layer)]]
+              for layer in range(13)]
         cs = [confidence(y) for y in ys]
         yerr = [(x[1] - x[0]) / 2 for x in cs]
         plt.errorbar(
@@ -64,7 +66,7 @@ for data_file in rep_file_list:
             **PLTARGS
         )
 
-    if data_file!="mlp_GPT2.json":
+    if data_file != "mlp_GPT2.json":
         # special pooler handling
         ys = [x[1] for x in data["pooler"]["0"]]
         cs = confidence(ys)
@@ -99,8 +101,8 @@ for data_file in rep_file_list:
 
     plt.tight_layout(pad=0.1)
     plt.legend(ncol=2)
-    
-    loc = os.path.join(graph_path,data_file.replace(".json", ".pdf"))
+
+    loc = os.path.join(graph_path, data_file.replace(".json", ".pdf"))
     # print(loc)
     plt.savefig(loc)
     # plt.show()
