@@ -2,8 +2,6 @@
 data
 computed/*.pdf
 computed/*.json
-computed/Ambiguity/*
-computed/Grammaticality/*
 
 # added by SUBdroid
 .history-*
