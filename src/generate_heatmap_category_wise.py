@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+raise Exception("This script is deprecated")
+
 from utils import read_json, read_tfidf
 import matplotlib.pyplot as plt
 import numpy as np
