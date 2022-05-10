@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+raise Exception("This script is deprecated")
+
 from utils import read_json, read_tfidf, read_tfidf_neural, save_json
 import matplotlib.pyplot as plt
 import numpy as np

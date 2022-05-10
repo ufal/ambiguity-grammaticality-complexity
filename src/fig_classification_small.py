@@ -17,10 +17,10 @@ def confidence(vals):
     )
 
 args = ArgumentParser()
-args.add_argument("-d", "--data", default="computed/Complexity/complexity_english/mlp_BERT.json")
+args.add_argument("-d", "--data", default="computed/Grammaticality/morphology/determiner_noun_agreement_irregular_1/mlp_BERT.json")
 args = args.parse_args()
 
-tf_idf = float(read_tfidf_neural("complexity_english"))
+tf_idf = float(read_tfidf_neural("determiner_noun_agreement_irregular_1"))
 
 PLTARGS = dict(
     capsize=3, capthick=2,
@@ -29,7 +29,7 @@ PLTARGS = dict(
 )
 data = read_json(args.data)
 
-plt.figure(figsize=(4.5, 4))
+plt.figure(figsize=(4.5, 2.97))
 ax = plt.gca()
 
 for k in ["Mean", "Haddamard", "CLS"]:
@@ -66,15 +66,22 @@ ax.hlines(
     tf_idf, 0, 12.5, label="TF-IDF",
     linestyle=":", color="tab:gray"
 )
-ax.set_ylim(0.45, 0.88)
+ax.set_ylim(0.45, 1.01)
+# ax.set_xlim(-0.5, 13)
 ax.set_ylabel(f"Accuracy")
 
-ax.legend(ncol=3, loc="upper center")
-ax.get_xaxis().set_visible(False)
+ax.legend(
+    ncol=3, loc="upper center",
+    bbox_to_anchor=(0.5, 1.32)
+)
+# ax.get_xaxis().set_visible(False)
 
 plt.xlabel("Layer")
 
-plt.tight_layout(pad=0.1)
+plt.tight_layout(
+    rect=[0, 0, 1, 1.01],
+    pad=0.1
+)
 
 plt.savefig("computed/blimp_det_noun.pdf")
 plt.show()
