@@ -1,6 +1,8 @@
 # added by zouharvi
 data
+computed/*.pkl
 computed/*.pdf
+computed/**/*.pdf
 computed/*.json
 computed/tsne_vectors
 # lets only version code and not outputs

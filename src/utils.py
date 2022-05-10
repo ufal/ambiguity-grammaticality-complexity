@@ -26,7 +26,7 @@ def save_pickle(path, data):
 
 
 def read_tfidf(name):
-    with open('computed/tfidf_baselines.tsv', "r") as f:
+    with open('computed/TFIDF/dev_lr.tsv', "r") as f:
         for line in f.readlines():
             items = line.strip().split("\t")
             if len(items) < 2:
@@ -35,7 +35,7 @@ def read_tfidf(name):
                 return items[1]
 
 def read_tfidf_neural(name):
-    with open('computed/tfidf_baselines_mlp.tsv', "r") as f:
+    with open('computed/TFIDF/dev_mlp.tsv', "r") as f:
         for line in f.readlines():
             items = line.strip().split("\t")
             if len(items) < 2:
