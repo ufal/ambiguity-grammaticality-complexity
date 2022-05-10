@@ -67,8 +67,8 @@ max_vocab_coefs_max = max_vocab_coefs[-10:][::-1]
 print("Positive.:", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_max]))
 print("Negative.: ", ', '.join([f"{x[0]}: {x[1]:.2f}" for x in max_vocab_coefs_min]))
 
-f_name = open("computed/tfidf_baselines.tsv","a")
-f_name2 = open("computed/tfidf_baselines_train.tsv","a")
+f_name = open("computed/TFIDF/dev_lr.tsv","a")
+f_name2 = open("computed/TFIDF/train_lr.tsv","a")
 set_name = args.data
 case_name = set_name.split("/")[-2]
 print("%s\t%s"%(case_name,max_acc),file=f_name)
@@ -117,8 +117,8 @@ for max_features in [32, 64, 128, 256, 512, 768, 1024, 1536]:
         max_acc = score_test
         max_acc_train = score_train
 
-f_name = open("computed/tfidf_baselines_mlp.tsv","a")
-f_name2 = open("computed/tfidf_baselines_train_mlp.tsv","a")
+f_name = open("computed/TFIDF/dev_mlp.tsv","a")
+f_name2 = open("computed/TFIDF/train_mlp.tsv","a")
 set_name = args.data
 case_name = set_name.split("/")[-2]
 print("%s\t%s"%(case_name,max_acc),file=f_name)
