@@ -2,17 +2,14 @@
 data
 computed/*.pkl
 computed/*.pdf
-<<<<<<< HEAD
 computed/*.tsv
 computed/*_task_names
 #computed/*.json
-=======
 computed/**/*.pdf
 computed/*.json
 computed/tsne_vectors
 # lets only version code and not outputs
 figures
->>>>>>> cfa18c5bfebeceaaac3c442f5673d5ab32c3fe3b
 
 # added by SUBdroid
 .history-*
