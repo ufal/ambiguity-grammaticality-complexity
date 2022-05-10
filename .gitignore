@@ -1,7 +1,9 @@
 # added by zouharvi
 data
 computed/*.pdf
-computed/*.json
+computed/*.tsv
+computed/*_task_names
+#computed/*.json
 
 # added by SUBdroid
 .history-*
@@ -12,7 +14,8 @@ Representations
 .cache
 .python_history
 .*_history
-graphs 
+graphs
+multilingual 
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

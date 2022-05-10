@@ -8,11 +8,13 @@ import numpy as np
 class Model_sent:
     def __init__(self, model):
         if model=='bert':
+            # self.model = "bert-base-multilingual-cased"
             self.model = "bert-base-multilingual-cased"
         elif model=='gpt2':
             self.model = 'gpt2'
         elif model=='sbert':
-            self.model="DeepPavlov/bert-base-multilingual-cased-sentence"
+            # self.model="DeepPavlov/bert-base-multilingual-cased-sentence"
+            self.model="usc-isi/sbert-roberta-large-anli-mnli-snli"
         self.max_len = 100
 
     def init_model(self):
@@ -198,28 +200,28 @@ if __name__ == "__main__":
         print("Creating new folder to store the representations")
         os.mkdir(rep_folder)
 
-    # """Ambiguity Representations"""
-    # print("Processing ambiguity category : COCO")
-    # amb,namb = sentence_ambiguous(args.data)   
-    # ambiguity_representation_generator("COCO",amb,namb)
+    """Ambiguity Representations"""
+    print("Processing ambiguity category : COCO")
+    amb,namb = sentence_ambiguous(args.data)   
+    ambiguity_representation_generator("COCO",amb,namb)
     
-    # print("Processing ambiguity category : EMMT")
-    # amb, namb = emmt(os.path.join("data",os.path.join("ambiguity",os.path.join("EMMT","sentence_list.csv"))))
-    # ambiguity_representation_generator("EMMT",amb,namb)
+    print("Processing ambiguity category : EMMT")
+    amb, namb = emmt(os.path.join(args.data,os.path.join("ambiguity",os.path.join("EMMT","sentence_list.csv"))))
+    ambiguity_representation_generator("EMMT",amb,namb)
     
-    # """Grammaticality Representations"""
+    """Grammaticality Representations"""
     
-    # grammaticality_data_loc = os.path.join(data_location,"grammaticality")
-    # categories = ["morphology","syntax","semantics","syntax_semantics"]
-    # for category in categories:
-    #     data_dir = os.path.join(grammaticality_data_loc,category) 
-    #     for files in os.listdir(data_dir):
-    #         print("Processing grammaticality category :%s "%files)
-    #         s_good,s_bad = read_blimp_cases(os.path.join(data_dir,files))
-    #         blimp_representation_generator(category,files,s_good,s_bad)          
+    grammaticality_data_loc = os.path.join(data_location,"grammaticality")
+    categories = ["morphology","syntax","semantics","syntax_semantics"]
+    for category in categories:
+        data_dir = os.path.join(grammaticality_data_loc,category) 
+        for files in os.listdir(data_dir):
+            print("Processing grammaticality category :%s "%files)
+            s_good,s_bad = read_blimp_cases(os.path.join(data_dir,files))
+            blimp_representation_generator(category,files,s_good,s_bad)          
 
-    # acceptable, unacceptable = CoLA_extract(data_location)    
-    # CoLA_representation_generator("CoLA",acceptable,unacceptable)
+    acceptable, unacceptable = CoLA_extract(data_location)    
+    CoLA_representation_generator("CoLA",acceptable,unacceptable)
 
     """Complexity Representations"""
     simple,complicated = Complexity_extract(data_location,"english")

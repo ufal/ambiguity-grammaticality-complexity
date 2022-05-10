@@ -43,7 +43,7 @@ for model in rep_files:
         print(mode)
         layer_generator = range(13) if mode != "pooler" else [0]
         for layer in layer_generator:
-            for rstate in range(10):
+            for rstate in range(4):
                 
                 if mode == "pooler":
                     data_x = [x[mode] for x in data]

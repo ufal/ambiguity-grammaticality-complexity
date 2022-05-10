@@ -48,9 +48,11 @@ for data_file in rep_file_list:
         elinewidth=1
     )
     if data_file == "mlp_GPT2.json":
-        rep_list = ["Mean", "Haddamard", "Sum"]
+        # rep_list = ["Mean", "Haddamard", "Sum"]
+        rep_list = ["Mean", "Haddamard"]
     else:
-        rep_list = ["Mean", "Haddamard", "Sum", "CLS"]
+        # rep_list = ["Mean", "Haddamard", "Sum", "CLS"]
+        rep_list = ["Mean", "Haddamard", "CLS"]
 
     for k in rep_list:
         # take test scores
@@ -86,16 +88,15 @@ for data_file in rep_file_list:
 
     if tf_idf is not None:
         plt.hlines(
-            tf_idf, 0, 12, label="TF-IDF (logistic)",
+            tf_idf, 0, 12, label="TF-IDF",
             linestyle="-.", color="tab:gray"
         )
 
-    if tf_idf_neural is not None:
-        plt.hlines(
-            tf_idf_neural, 0, 12, label="TF-IDF (neural)",
-            linestyle=":", color="tab:gray"
-        )
-
+    # if tf_idf_neural is not None:
+    #     plt.hlines(
+    #         tf_idf_neural, 0, 12, label="TF-IDF (neural)",
+    #         linestyle=":", color="tab:gray"
+    #     )
     plt.ylabel("Dev accuracy")
     plt.xlabel("Layer")
 

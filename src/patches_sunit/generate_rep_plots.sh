@@ -30,6 +30,16 @@ for d in $Amb_LOC/*; do
     ./src/fig_classification.py --data $d
 done
 
+
+COMPLEXITY_LOC=$HOME/Representations/Complexity
+for d in $COMPLEXITY_LOC/*; do
+    echo $d
+    # ./src/classification_mlp.py --data $d 
+    ./src/fig_classification.py --data $d
+done
+
+
+
 GRAM_LOC=$HOME/Representations/Grammaticality
 for d in $GRAM_LOC/*; do
     n_loc=$d
@@ -47,12 +57,6 @@ for d in $GRAM_LOC/*; do
     fi
 done
 
-COMPLEXITY_LOC=$HOME/Representations/Complexity
-for d in $COMPLEXITY_LOC/*; do
-    echo $d
-    # ./src/classification_mlp.py --data $d 
-    ./src/fig_classification.py --data $d
-done
 
 
 # rm -rf .cache
