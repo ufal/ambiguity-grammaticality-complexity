@@ -35,7 +35,7 @@ if args.compute:
     max_j = np.argmax(np.argmax(dists, axis=0))
     print("Highest:", max_i, max_j, dists[max_i, max_j])
 
-    CLUSTER_SIZE = 230
+    CLUSTER_SIZE = 231
     seed_a = data_a[max_i]
     seed_b = data_b[max_j]
 
