@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from utils import read_json, read_tfidf, save_json
+from utils import read_json, read_tfidf, read_tfidf_neural, save_json
 import matplotlib.pyplot as plt
 import numpy as np
 import fig_utils
@@ -45,6 +45,10 @@ def summary_stats(data_loc):
 
     tf_idf = float(read_tfidf(dataset_name)) 
     max_scores.append(tf_idf)
+
+    tf_idf_neural = float(read_tfidf_neural(dataset_name)) 
+    max_scores.append(tf_idf_neural)
+
 
     BERT = os.path.join(data_loc,"mlp_BERT.json")
     max_score,layer_score,rep = extract_summary(BERT)
@@ -247,7 +251,7 @@ def BLiMP_Plotter(condition):
 
     scores_agg, names, layer_agg, rep_agg = func
 
-    x_axis_labels = ["TF-IDF","BERT","GPT2","SBERT"]
+    x_axis_labels = ["TF-IDF(logistic)","TF-IDF(neural)","BERT","GPT2","SBERT"]
     fig, ax = plt.subplots()
     ax = sns.heatmap(scores_agg, xticklabels=x_axis_labels,  yticklabels=names, fmt="")
 

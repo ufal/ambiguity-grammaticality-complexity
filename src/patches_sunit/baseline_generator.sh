@@ -23,6 +23,8 @@ fi
 
 rm computed/tfidf_baselines.tsv
 touch computed/tfidf_baselines.tsv
+rm computed/tfidf_baselines_mlp.tsv
+touch computed/tfidf_baselines_mlp.tsv
 
 # AMBIGUITY CASES
 AMB_LOC=$HOME/Representations/Ambiguity

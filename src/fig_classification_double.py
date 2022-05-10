@@ -21,6 +21,9 @@ args.add_argument("-d1", "--data-1", default="computed/mlp_BERT_COCO.json")
 args.add_argument("-d2", "--data-2", default="computed/mlp_BERT_COMPEN.json")
 args = args.parse_args()
 
+name = ((args.data_1).split("/")[-1]).split("_")[1].replace(".json","")
+
+
 tf_idf_1 = float(read_tfidf_neural("COCO"))
 tf_idf_2 = float(read_tfidf_neural("complexity_english"))
 
@@ -32,14 +35,21 @@ PLTARGS = dict(
 data1 = read_json(args.data_1)
 data2 = read_json(args.data_2)
 
-plt.figure(figsize=(4.5, 4))
+# plt.figure(figsize=(4.5, 4))
+plt.rcParams["figure.figsize"] = (4.5,4)
 ax1 = plt.subplot(2, 1, 1)
 ax2 = plt.subplot(2, 1, 2)
+
+if name=="GPT2":
+    reps =  ["Mean", "Haddamard"]
+else:
+    reps =  ["Mean", "Haddamard", "CLS"]
+
 
 for data_i, (data, tf_idf, ax, title) in enumerate(zip(
         [data1, data2], [tf_idf_1, tf_idf_2], [ax1, ax2], ["Ambiguity", "Complexity"]
     )):
-    for k in ["Mean", "Haddamard", "CLS"]:
+    for k in reps:
         # take test scores
         ys = [
             [x[1] for x in data[k.lower()][str(layer)]]
@@ -55,18 +65,18 @@ for data_i, (data, tf_idf, ax, title) in enumerate(zip(
             yerr=yerr,
             **PLTARGS
         )
-    
-    # special pooler handling
-    ys = [x[1] for x in data["pooler"]["0"]]
-    cs = confidence(ys)
-    yerr = (cs[1] - cs[0]) / 2
-    ax.errorbar(
-        [12.5],
-        [np.average(ys)],
-        label="Pooler",
-        yerr=yerr,
-        ** PLTARGS
-    )
+    if name!="GPT2":
+        # special pooler handling
+        ys = [x[1] for x in data["pooler"]["0"]]
+        cs = confidence(ys)
+        yerr = (cs[1] - cs[0]) / 2
+        ax.errorbar(
+            [12.5],
+            [np.average(ys)],
+            label="Pooler",
+            yerr=yerr,
+            ** PLTARGS
+        )
 
 
     ax.hlines(

@@ -2,6 +2,9 @@
 data
 computed/*.pkl
 computed/*.pdf
+computed/*.tsv
+computed/*_task_names
+#computed/*.json
 computed/**/*.pdf
 computed/*.json
 computed/tsne_vectors
@@ -17,7 +20,8 @@ Representations
 .cache
 .python_history
 .*_history
-graphs 
+graphs
+multilingual 
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

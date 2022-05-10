@@ -1,15 +1,6 @@
 COCO	0.6583333333333334
 EMMT	0.54
-CoLA	0.48828996282527876
-anaphor_gender_agreement	0.908
-anaphor_number_agreement	0.932
-determiner_noun_agreement_1	0.514
-determiner_noun_agreement_2	0.509
-determiner_noun_agreement_irregular_1	0.9729999999999999
-determiner_noun_agreement_irregular_2	0.9035
-COCO	0.6583333333333334
-EMMT	0.54
-CoLA	0.48828996282527876
+CoLA	0.4860594795539034
 anaphor_gender_agreement	0.908
 anaphor_number_agreement	0.932
 determiner_noun_agreement_1	0.514
