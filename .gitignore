@@ -3,6 +3,8 @@ data
 computed/*.pdf
 computed/*.json
 computed/tsne_vectors
+# lets only version code and not outputs
+figures
 
 # added by SUBdroid
 .history-*
