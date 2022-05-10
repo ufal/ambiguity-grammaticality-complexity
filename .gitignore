@@ -2,6 +2,7 @@
 data
 computed/*.pdf
 computed/*.json
+computed/tsne_vectors
 
 # added by SUBdroid
 .history-*
