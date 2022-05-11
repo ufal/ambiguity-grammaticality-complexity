@@ -44,3 +44,13 @@ For example:
 ./src/patches_sunit/generate_rep_plots.sh  
 ./src/patches_sunit/generate_rep_plots.sh ../location_of_virtualenv 
 ```
+
+# DATA
+The data used in the experiments are publicly available. Some pointers to the data:
+* BLiMP: https://github.com/alexwarstadt/blimp
+* CoLA: https://nyu-mll.github.io/CoLA/
+* Complexity Data: http://www.italianlp.it/resources/corpus-of-sentences-rated-with-human-complexity-judgments/
+* MSCOCO: http://www.italianlp.it/resources/corpus-of-sentences-rated-with-human-complexity-judgments/
+* Ambiguous COCO: https://www.quest.dcs.shef.ac.uk/wmt17_files_mmt/source_mscoco.task1
+
+
