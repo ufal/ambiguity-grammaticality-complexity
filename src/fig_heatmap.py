@@ -24,6 +24,7 @@ args = args.parse_args()
 data = read_json(args.data)
 # sort data by decreasing length
 data.sort(key=lambda x: len(x), reverse=True)
+data = [data[i] for i in [1,0,2,3]]
 
 PLTARGS = dict(
     capsize=3, capthick=2,
