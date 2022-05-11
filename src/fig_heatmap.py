@@ -16,14 +16,14 @@ def confidence(vals):
         scale=st.sem(vals)
     )
 
+
 args = ArgumentParser()
-args.add_argument("-d", "--data", default="computed/Grammaticality/morphology/determiner_noun_agreement_irregular_1/mlp_BERT.json")
+args.add_argument("-d", "--data", default="computed/Grammaticality/aggregation_max.json")
 args = args.parse_args()
 
-# data = read_json(args.data)
-data = {k:np.random.rand(3) for k in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
-
-# tf_idf = float(read_tfidf_neural("determiner_noun_agreement_irregular_1"))
+data = read_json(args.data)
+# sort data by decreasing length
+data.sort(key=lambda x: len(x), reverse=True)
 
 PLTARGS = dict(
     capsize=3, capthick=2,
@@ -31,24 +31,49 @@ PLTARGS = dict(
     elinewidth=1
 )
 
-plt.figure(figsize=(4.5, 2.97))
+fig = plt.figure(figsize=(4.5, 2.8))
 
-img = np.zeros((len(data), 3))
+for data_i, data_v in enumerate(data):
+    ax = plt.subplot(5, 1, data_i + 1)
+    img = np.zeros((max([len(x) for x in data]), 3))
 
-for task_i, (task, task_v) in enumerate(data.items()):
-    img[task_i][0] = task_v[0]
-    img[task_i][1] = task_v[1]
-    img[task_i][2] = task_v[2]
+    for task_i, task in enumerate(data_v):
+        img[task_i][0] = task["TFIDF"]
+        img[task_i][1] = task["BERT"]
+        img[task_i][2] = task["GPT"]
+    
+    
+    # mask zeroes
+    img = np.ma.masked_where(img == 0, img)
+    img_p = ax.imshow(
+        img.T, vmin=min(img[img > 0]), vmax=1, aspect="auto",
+        cmap="cividis"
+    )
 
-plt.imshow(img)
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
 
-for task_i, (task, task_v) in enumerate(data.items()):
-    plt.text(-1, task_i, task)
+    ax.text(
+        img.shape[0]-1, 1.5,
+        task["condition"].replace("_", " ").capitalize(),
+        ha="right"
+    )
 
-plt.tight_layout(
-    rect=[0, 0, 1, 1.01],
-    pad=0.1
+    for text_i, text in enumerate(["TF-IDF", "BERT", "GPT-2"]):
+        ax.text(
+            -1, text_i,
+            text, ha="right", va="center",
+            fontsize=9,
+        )
+    
+
+cax = plt.axes([0.07, 0.1, 0.9, 0.05])
+plt.colorbar(img_p, orientation="horizontal", cax=cax)
+
+plt.subplots_adjust(
+    top=0.98, right=0.98, bottom=-0.04,
+    hspace=0.05, wspace=0
 )
 
-# plt.savefig("computed/blimp_det_noun.pdf")
+plt.savefig("computed/grammaticality_aggregation.pdf")
 plt.show()

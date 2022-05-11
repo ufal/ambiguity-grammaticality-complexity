@@ -10,6 +10,8 @@ computed/*.json
 computed/tsne_vectors
 # lets only version code and not outputs
 figures
+# Sunit's lock file
+*.~lock*
 
 # added by SUBdroid
 .history-*
