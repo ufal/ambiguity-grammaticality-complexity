@@ -73,7 +73,7 @@ else:
     adv_a, adv_b = data[1]
 
 
-plt.figure(figsize=(4.5, 2.7))
+plt.figure(figsize=(4.5, 3.1))
 ax1 = plt.subplot(2, 1, 1)
 ax2 = plt.subplot(2, 1, 2)
 
@@ -99,11 +99,13 @@ for ax, (d1, d2), text in zip([ax1, ax2], [(orig_a, orig_b), (adv_a, adv_b)], ["
         [x[0] for x in d1],
         [x[1] for x in d1],
         s=10,
+        color="black",
     )
     ax.scatter(
         [x[0] for x in d2],
         [x[1] for x in d2],
         s=10,
+        color="salmon",
     )
 
     ax.set_xlim(-0.02, 1.05)

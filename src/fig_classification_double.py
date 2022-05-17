@@ -36,7 +36,7 @@ data1 = read_json(args.data_1)
 data2 = read_json(args.data_2)
 
 # plt.figure(figsize=(4.5, 4))
-plt.rcParams["figure.figsize"] = (4.5,4)
+plt.rcParams["figure.figsize"] = (4.5, 4.5)
 ax1 = plt.subplot(2, 1, 1)
 ax2 = plt.subplot(2, 1, 2)
 

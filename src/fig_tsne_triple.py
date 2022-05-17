@@ -44,7 +44,7 @@ def norm_data(data):
     data[1] = norm_subdata(data[1])
     return data
 
-plt.figure(figsize=(4.5, 4))
+plt.figure(figsize=(4.5, 4.6))
 ax1 = plt.subplot(3, 1, 1)
 ax2 = plt.subplot(3, 1, 2)
 ax3 = plt.subplot(3, 1, 3)
@@ -62,11 +62,13 @@ for data_i, (data, ax, text_title) in enumerate(zip(
         [x[0] for x in data[0]],
         [x[1] for x in data[0]],
         s=15, marker=".",
+        color="black",
     )
     ax.scatter(
         [x[0] for x in data[1]],
         [x[1] for x in data[1]],
         s=15, marker=".",
+        color="salmon",
     )
     ax.set_xlim(-0.02, 1.05)
     ax.set_ylim(-0.09, 1.2)

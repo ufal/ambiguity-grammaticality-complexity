@@ -29,7 +29,7 @@ PLTARGS = dict(
 )
 data = read_json(args.data)
 
-plt.figure(figsize=(4.5, 2.97))
+plt.figure(figsize=(4.5, 3.4))
 ax = plt.gca()
 
 for k in ["Mean", "Haddamard", "CLS"]:
