@@ -9,7 +9,7 @@ b. <path_of_virtual_environment> : This is an optional argument that specifies t
 
 Run the script as:
 
-generate_reprsentations.sh <path_of_data> <path_of_virtual_environment>
+generate_representations.sh <path_of_data> <path_of_virtual_environment>
 " && exit
 
 HOME=$(pwd)
