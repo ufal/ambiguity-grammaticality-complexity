@@ -1,6 +1,9 @@
 # Sentence Ambiguity, Grammaticality and Complexity Probes
 
 A project at Institute of Formal and Applied Linguistics at Charles University to be presented at BlackboxNLP @ EMNLP 2022.
+Contact the authors for more info about this project.
+
+Paper link and citation TODO.
 
 ## Extracting the representations
 To extract the representations from the data, run: 
