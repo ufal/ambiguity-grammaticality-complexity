@@ -1,7 +1,6 @@
-# Ambiguity, Complexity and Grammaticality in Pretrained Language Models
+# Sentence Ambiguity, Grammaticality and Complexity Probes
 
-A project at Institute of Formal and Applied Linguistics at Charles University.
-Contact the authors for more info.
+A project at Institute of Formal and Applied Linguistics at Charles University to be presented at BlackboxNLP @ EMNLP 2022.
 
 ## Extracting the representations
 To extract the representations from the data, run: 
@@ -45,12 +44,10 @@ For example:
 ./src/patches_sunit/generate_rep_plots.sh ../location_of_virtualenv 
 ```
 
-# DATA
+# Data
 The data used in the experiments are publicly available. Some pointers to the data:
 * BLiMP: https://github.com/alexwarstadt/blimp
 * CoLA: https://nyu-mll.github.io/CoLA/
 * Complexity Data: http://www.italianlp.it/resources/corpus-of-sentences-rated-with-human-complexity-judgments/
 * MSCOCO: http://www.italianlp.it/resources/corpus-of-sentences-rated-with-human-complexity-judgments/
 * Ambiguous COCO: https://www.quest.dcs.shef.ac.uk/wmt17_files_mmt/source_mscoco.task1
-
-
