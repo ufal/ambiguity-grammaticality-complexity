@@ -1,9 +1,18 @@
 # Sentence Ambiguity, Grammaticality and Complexity Probes
 
 A project at Institute of Formal and Applied Linguistics at Charles University to be presented at BlackboxNLP @ EMNLP 2022.
-Contact the authors for more info about this project.
+Read the paper [here](https://arxiv.org/pdf/2210.06928.pdf) and cite as:
 
-Paper link and citation TODO.
+```
+@article{bhattacharya2022sentence,
+  title={Sentence Ambiguity, Grammaticality and Complexity Probes},
+  author={Bhattacharya, Sunit and Zouhar, Vil{\'e}m and Bojar, Ond{\v{r}}ej},
+  journal={arXiv preprint arXiv:2210.06928},
+  year={2022}
+}
+```
+
+[Contact the authors](mailto:bhattacharya@ufal.mff.cuni.cz,zouhar@ufal.mff.cuni.cz,bojar@ufal.mff.cuni.cz) for more information about this work :blush:.
 
 ## Extracting the representations
 To extract the representations from the data, run: 
